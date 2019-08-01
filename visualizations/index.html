@@ -291,7 +291,6 @@ div.tooltip {
     });
 
     d3.select("#ageSelect").selectAll("option").data(Array.from(ageCategories)).enter().append("option")
-    //.attr("selected", function(d) { if (d == "35-54 years") { return "selected"} return "none" })
       .attr("value", function (d) {
         return d;
       })
@@ -300,7 +299,6 @@ div.tooltip {
       });
 
     d3.select("#sexSelect").selectAll("option").data(['male', 'female']).enter().append("option")
-    //.attr("selected", function(d) { if (d == "male") { return "selected"} return "none" })
       .attr("value", function (d) {
         return d;
       })
@@ -370,6 +368,16 @@ div.tooltip {
         .tickValues([Math.pow(10, 6), Math.pow(10, 7), Math.pow(10, 8), 3 * Math.pow(10, 8)])
         .tickFormat(d3.format("~s")));
 
+    d3.select("svg").append("text")
+      .attr("transform",
+        "translate(" + (w/2) + " ," +
+        (h + margin + 20) + ")")
+      .style("text-anchor", "middle")
+      .text("Country total population.");
+    d3.select("svg").append("text")
+      .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+      .attr("transform", "translate("+ (margin - 40 ) +","+(h/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+      .text("Total number of suicides per country.");
   };
 
   // Slider part
