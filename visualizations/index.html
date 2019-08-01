@@ -1,0 +1,397 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Suicide rate by country.</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+</head>
+<style> /* set the CSS */
+
+body {
+    font: 12px Arial;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 120px;
+    height: 32px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.selector {
+    display: block;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #444;
+    line-height: 1.3;
+    padding: .6em 1.4em .5em .8em;
+    width: 20%;
+    max-width: 20%;
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, .04);
+    border-radius: .5em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+    linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+}
+
+.selector::-ms-expand {
+    display: none;
+}
+
+.selector:hover {
+    border-color: #888;
+}
+
+.selector:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+.selector option {
+    font-weight: normal;
+}
+
+#custom-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+}
+
+#slider {
+    width: 80%;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+.selectors select {
+    float: left;
+}
+
+.arrowButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    margin: 20px 2px;
+    cursor: pointer;
+    background-color: #008CBA;
+}
+
+</style>
+
+<body onload="handleSlide()">
+
+<div class="selectors">
+    <select id="ageSelect" class="selector" onchange="loadData()">
+    </select>
+    <select id="sexSelect" class="selector" onchange="loadData()">
+    </select>
+</div>
+
+<svg></svg>
+<div>
+    <button id="leftArrow" class="arrowButton" onclick="onLeftArrowClick() ">&#8678;</button>
+    <button id="rightArrow" class="arrowButton" onclick="onRightArrowClick()">&#8680;</button>
+</div>
+
+<script>
+  var slide = 0;
+
+  async function handleSlide() {
+    if (slide == 0) {
+      await loadData();
+    }
+    document.getElementById("leftArrow").style.visibility = "visible";
+    document.getElementById("rightArrow").style.visibility = "visible";
+    var slider = document.getElementById("custom-handle");
+    if (slide == 0) {
+      document.getElementById("leftArrow").style.visibility = "hidden";
+      slider.innerHTML = 1987;
+      slider.setAttribute("style", "left: 0%;");
+      document.getElementById("ageSelect").selectedIndex = "1";
+      document.getElementById("sexSelect").selectedIndex = "0";
+    } else if (slide == 1) {
+      document.getElementById("ageSelect").selectedIndex = "2";
+      document.getElementById("sexSelect").selectedIndex = "0";
+      slider.innerHTML = 1987;
+      slider.setAttribute("style", "left: 0%;");
+    } else if (slide == 2) {
+      document.getElementById("sexSelect").selectedIndex = "1";
+      document.getElementById("ageSelect").selectedIndex = "1";
+      slider.innerHTML = 1987;
+      slider.setAttribute("style", "left: 0%;");
+    } else if (slide == 3) {
+      var slider = document.getElementById("custom-handle");
+      slider.innerHTML = 1994;
+      slider.setAttribute("style", "left: 26%;");
+      document.getElementById("ageSelect").selectedIndex = "1";
+      document.getElementById("sexSelect").selectedIndex = "0";
+    }
+    if (slide == 4) {
+      document.getElementById("rightArrow").style.visibility = "hidden";
+      slider.innerHTML = 2013;
+      slider.setAttribute("style", "left: 96%;");
+      document.getElementById("ageSelect").selectedIndex = "1";
+      document.getElementById("sexSelect").selectedIndex = "0";
+    }
+    loadData();
+    showAnnotations();
+  }
+
+  function onRightArrowClick() {
+    if (slide == 4) {
+      return;
+    }
+
+    slide += 1;
+    console.log(slide);
+    handleSlide()
+  }
+
+  function onLeftArrowClick() {
+    if (slide == 0) {
+      return;
+    }
+
+    slide -= 1;
+    console.log(slide);
+    handleSlide()
+  }
+</script>
+
+<script>
+  function showAnnotations() {
+  const annotations = [
+    {
+      note: {
+        label: "Each circle represents a country with the radius scaled to a suicide/100k population ratio." +
+        " Hover over them, to see more details.",
+        title: ""
+      },
+      x: x(Math.pow(10, 7)),
+      y: y(100),
+      dy: 60,
+      dx: 60
+    },
+    {
+      note: {
+        label: "Group of over 75+ years has a much higher suicide rate compared to the others.",
+        title: "Elderly"
+      },
+      x: x(Math.pow(10, 5.5)),
+      y: y(90),
+      dy: -60,
+      dx: -60
+    },
+    {
+      note: {
+        label: "Females on the other hand, have much lower suicide rate than male.",
+        title: "Female"
+      },
+      x: x(Math.pow(10, 6.5)),
+      y: y(90),
+      dy: 60,
+      dx: -120
+    },
+    {
+      note: {
+        label: "Many post Soviet Union countries showed increase in suicide rates for a few years after the collapse.",
+        title: "Fall of The Soviet Union."
+      },
+      x: x(Math.pow(10, 7)),
+      y: y(Math.pow(10, 3.5)),
+      dy: 70,
+      dx: -180
+    },
+    {
+      note: {
+        label: "Lithuania has one of the highest suicides rates in the world. Causes might be associated with high poverty rate in a rural regions of the country.",
+        title: "Highest rate in the world."
+      },
+      x: x(Math.pow(10, 6)),
+      y: y(Math.pow(10, 2)),
+      dy: 70,
+      dx: -180
+    }
+  ]
+  const makeAnnotations = d3.annotation()
+    .type(d3.annotationLabel)
+    .annotations([annotations[slide]])
+
+  d3.select("svg")
+    .append("g")
+    .attr("class", "annotation-group")
+    .call(makeAnnotations)
+  }
+</script>
+
+<script>
+  //  <option value="1989">1989</option>
+  var w = 800;
+  var h = 400;
+  var margin = 50;
+
+  var x = d3.scaleLog().domain([1, 1000000000]).range([0, w]);
+  var y = d3.scaleLog().domain([1, 20000]).range([h, 0]);
+
+  // div for the tooltip
+  var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+  var color = d3.scaleLinear()
+    .domain([0, 100])
+    .range(["green", "red"]);
+
+  var data = null;
+  var ageCategories = new Set();
+  var year = 1987;
+
+  async function loadData() {
+    year = document.getElementById("custom-handle").innerHTML;
+    if (data == null) {
+      console.log("loading data");
+      data = await d3.csv("https://raw.githubusercontent.com/zokir/datasets/master/small_data.csv");
+    }
+
+    data.forEach(function (d) {
+      ageCategories.add(d.age);
+    });
+
+    d3.select("#ageSelect").selectAll("option").data(Array.from(ageCategories)).enter().append("option")
+    //.attr("selected", function(d) { if (d == "35-54 years") { return "selected"} return "none" })
+      .attr("value", function (d) {
+        return d;
+      })
+      .text(function (d) {
+        return d;
+      });
+
+    d3.select("#sexSelect").selectAll("option").data(['male', 'female']).enter().append("option")
+    //.attr("selected", function(d) { if (d == "male") { return "selected"} return "none" })
+      .attr("value", function (d) {
+        return d;
+      })
+      .text(function (d) {
+        return d;
+      });
+
+    var sex = document.getElementById("sexSelect").value;
+    var age = document.getElementById("ageSelect").value;
+    // first clear it
+    d3.select("svg").html("");
+
+    d3.select("svg")
+      .attr("width", w + 2 * margin)
+      .attr("height", h + 2 * margin)
+      .append("g")
+      .attr("transform", "translate(" + margin + "," + margin + ")")
+      .selectAll("circle").data(data).enter()
+      .append("circle")
+      .attr("fill", function (d) {
+        return color(d["suicides/100k pop"]);
+      })
+      .filter(function (d) {
+        return d.year == year;
+      })
+      .filter(function (d) {
+        return d.age == age;
+      })
+      .filter(function (d) {
+        return d.sex == sex;
+      })
+      .attr("cx", function (d) {
+        return x(d.population);
+      })
+      .attr("cy", function (d) {
+        return y(Math.max(1, d["suicides_no"]));
+      })
+      .attr("r", function (d) {
+        return parseInt(d["suicides/100k pop"]) / 5;
+      })
+      .on("mouseover", function (d) {
+        div.transition()
+          .duration(200)
+          .style("opacity", .9);
+        div.html(d.country + '<br/>per 100k: ' + d["suicides/100k pop"])
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (d) {
+        div.transition()
+          .duration(500)
+          .style("opacity", 0);
+      })
+    ;
+
+    d3.select("svg")
+      .append("g")
+      .attr("transform", "translate(" + margin + "," + margin + ")")
+      .call(d3.axisLeft(y)
+        .tickValues([10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000])
+        .tickFormat(d3.format("~s")));
+
+    d3.select("svg")
+      .append("g")
+      .attr("transform", "translate(" + margin + "," + (h + margin) + ")")
+      .call(d3.axisBottom(x)
+        .tickValues([Math.pow(10, 6), Math.pow(10, 7), Math.pow(10, 8), 3 * Math.pow(10, 8)])
+        .tickFormat(d3.format("~s")));
+
+  };
+
+  // Slider part
+  $(function () {
+    var handle = $("#custom-handle");
+    $("#slider").slider({
+      min: 1987,
+      max: 2014,
+      create: function () {
+        handle.text($(this).slider("value"));
+      },
+      slide: function (event, ui) {
+        handle.text(ui.value);
+        loadData()
+      }
+    });
+  });
+
+</script>
+<div id="slider">
+    <div id="custom-handle" class="ui-slider-handle"></div>
+</div>
+
+</body>
+</html>
