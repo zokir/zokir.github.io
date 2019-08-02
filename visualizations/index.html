@@ -104,7 +104,7 @@ div.tooltip {
     text-decoration: none;
     display: inline-block;
     font-size: 24px;
-    margin: 20px 2px;
+    margin: 10px 2px;
     cursor: pointer;
     background-color: #008CBA;
 }
@@ -113,6 +113,14 @@ div.tooltip {
 
 <body onload="handleSlide()">
 
+<h1>Suicides rates by country since 1987.</h1>
+<p style="font-size:16px">Following data was adopted from
+    <a href="https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016">Kaggle</a>,
+    which aggregated multiple datasets<br/> from various sources of suicide rates from different countries across the<br/> world.
+    Data excludes some large countries(India, China, Pakistan etc.)<br/> The purpose of the data is to come up with the signals
+    that can be used for<br/> suicide prevention.
+</p>
+s
 <div class="selectors">
     <select id="ageSelect" class="selector" onchange="loadData()">
     </select>
@@ -121,6 +129,7 @@ div.tooltip {
 </div>
 
 <svg></svg>
+
 <div>
     <button id="leftArrow" class="arrowButton" onclick="onLeftArrowClick() ">&#8678;</button>
     <button id="rightArrow" class="arrowButton" onclick="onRightArrowClick()">&#8680;</button>
@@ -309,9 +318,10 @@ div.tooltip {
     var sex = document.getElementById("sexSelect").value;
     var age = document.getElementById("ageSelect").value;
     // first clear it
-    d3.select("svg").html("");
+    var svg = d3.select("svg");
+    svg.html("");
 
-    d3.select("svg")
+    svg
       .attr("width", w + 2 * margin)
       .attr("height", h + 2 * margin)
       .append("g")
@@ -354,27 +364,27 @@ div.tooltip {
       })
     ;
 
-    d3.select("svg")
+    svg
       .append("g")
       .attr("transform", "translate(" + margin + "," + margin + ")")
       .call(d3.axisLeft(y)
         .tickValues([10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000])
         .tickFormat(d3.format("~s")));
 
-    d3.select("svg")
+    svg
       .append("g")
       .attr("transform", "translate(" + margin + "," + (h + margin) + ")")
       .call(d3.axisBottom(x)
         .tickValues([Math.pow(10, 6), Math.pow(10, 7), Math.pow(10, 8), 3 * Math.pow(10, 8)])
         .tickFormat(d3.format("~s")));
 
-    d3.select("svg").append("text")
+    svg.append("text")
       .attr("transform",
         "translate(" + (w/2) + " ," +
         (h + margin + 20) + ")")
       .style("text-anchor", "middle")
       .text("Country total population.");
-    d3.select("svg").append("text")
+    svg.append("text")
       .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
       .attr("transform", "translate("+ (margin - 40 ) +","+(h/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
       .text("Total number of suicides per country.");
