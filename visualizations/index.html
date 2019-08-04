@@ -209,18 +209,18 @@ s
         " Hover over them, to see more details.",
         title: ""
       },
-      x: x(Math.pow(10, 7)),
-      y: y(100),
-      dy: 60,
-      dx: 60
+      x: x(Math.pow(10, 3.05)),
+      y: y(15),
+      dy: 30,
+      dx: -90
     },
     {
       note: {
         label: "Group of over 75+ years has a much higher suicide rate compared to the others.",
         title: "Elderly"
       },
-      x: x(Math.pow(10, 5.5)),
-      y: y(90),
+      x: x(2* Math.pow(10, 4)),
+      y: y(100),
       dy: -60,
       dx: -60
     },
@@ -229,8 +229,8 @@ s
         label: "Females on the other hand, have much lower suicide rate than male.",
         title: "Female"
       },
-      x: x(Math.pow(10, 6.5)),
-      y: y(90),
+      x: x(2 * Math.pow(10, 4)),
+      y: y(60),
       dy: 60,
       dx: -120
     },
@@ -239,20 +239,20 @@ s
         label: "Many post Soviet Union countries showed increase in suicide rates for a few years after the collapse.",
         title: "Fall of The Soviet Union."
       },
-      x: x(Math.pow(10, 7)),
-      y: y(Math.pow(10, 3.5)),
-      dy: 70,
-      dx: -180
+      x: x(Math.pow(10, 3)),
+      y: y(Math.pow(10, 3.3)),
+      dy: 10,
+      dx: -80
     },
     {
       note: {
         label: "Lithuania has one of the highest suicides rates in the world. Causes might be associated with high poverty rate in a rural regions of the country.",
         title: "Highest rate in the world."
       },
-      x: x(Math.pow(10, 6)),
-      y: y(Math.pow(10, 2)),
-      dy: 70,
-      dx: -180
+      x: x(Math.pow(10, 4.3)),
+      y: y(Math.pow(10, 1.8)),
+      dy: 60,
+      dx: -80
     }
   ]
   const makeAnnotations = d3.annotation()
@@ -272,7 +272,7 @@ s
   var h = 400;
   var margin = 50;
 
-  var x = d3.scaleLog().domain([1, 1000000000]).range([0, w]);
+  var x = d3.scaleLog().domain([200, 120000]).range([0, w]);
   var y = d3.scaleLog().domain([1, 20000]).range([h, 0]);
 
   // div for the tooltip
@@ -341,7 +341,7 @@ s
         return d.sex == sex;
       })
       .attr("cx", function (d) {
-        return x(d.population);
+        return x(d["gdp_per_capita ($)"]);
       })
       .attr("cy", function (d) {
         return y(Math.max(1, d["suicides_no"]));
@@ -375,15 +375,15 @@ s
       .append("g")
       .attr("transform", "translate(" + margin + "," + (h + margin) + ")")
       .call(d3.axisBottom(x)
-        .tickValues([Math.pow(10, 6), Math.pow(10, 7), Math.pow(10, 8), 3 * Math.pow(10, 8)])
+        .tickValues([Math.pow(10, 3), 2 * Math.pow(10, 3), 5 * Math.pow(10, 3), Math.pow(10, 4), 5* Math.pow(10, 4), Math.pow(10, 5)])
         .tickFormat(d3.format("~s")));
 
     svg.append("text")
       .attr("transform",
         "translate(" + (w/2) + " ," +
-        (h + margin + 20) + ")")
+        (h + margin + 40) + ")")
       .style("text-anchor", "middle")
-      .text("Country total population.");
+      .text("GDP per capita($)");
     svg.append("text")
       .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
       .attr("transform", "translate("+ (margin - 40 ) +","+(h/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
