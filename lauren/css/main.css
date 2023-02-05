@@ -46,7 +46,7 @@ a.hover {color:var(--primary-color);}
     }
 }
 
-.hero__video {
+.hero__background {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -56,6 +56,7 @@ a.hover {color:var(--primary-color);}
     height: auto;
     /* Figure out why he does transform instead of just not useing top, left 50%? */
     transform: translateX(-50%) translateY(-50%);
+    opacity: 0.8;
 }
 
 .hero_overlay {
@@ -65,7 +66,7 @@ a.hover {color:var(--primary-color);}
     right: 0;
     bottom: 0;
     background-color: var(--primary-color);
-    opacity: 0.5;
+    opacity: 0.3;
     z-index: 1;
 }
 
