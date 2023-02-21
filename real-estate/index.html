@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FancyPantsy</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Boostrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Header Start -->
+    <header class="header p-3 position-absolute start-0 top-0 end-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="#" class="text-decoration-none text-white fs-5 fw-bold">FancyPantsy</a>
+            <div class="dropdown">
+                <button class="navbar-toggler text-white" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                      </svg>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <li><a href="#about" class="dropdown-item btn btn-info" role="button">About</a></li>
+                  <li><a href="contact_us.html" class="dropdown-item btn btn-info" role="button">Contact Us</a></li>
+                </ul>
+              </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- Hero Start -->
+    <section class="hero ">
+        <div class="hero__overlay"></div>
+        <picture>
+            <source srcset="img/living_room_mobile.jpg" media="(orientation: portrait)" type="image/jpeg">
+            <img src="img/living_room.jpg" class="hero__video rounded mx-auto d-block img-fluid" alt="Hero Background">
+        </picture>
+        <!--
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" loading="lazy" class="hero__video">
+            <source src="img/background.mp4" type="video/mp4">
+        </video>
+    -->
+
+        <div class="hero__content h-100 container-fluid position-relative">
+            <div class="d-flex h-100 align-items-center hero__content-width">
+                <div class="text-white">
+                    <h1 class="hero__heading fw-bold mb-4">Real Estate Agents that own, operate and fix</h1>
+                    <a href="#about" class="mt-2 btn btn-ln btn-outline-light" role="button">Learn More</a>
+                </div>
+            </div>
+        </div>
+        
+
+        <a href="#scroll-down" class="hero__scroll-btn">
+            Explore <i class="bi bi-arrow-down"></i>
+        </a>
+    </section>
+    <!-- Hero End -->
+
+    <a id="scroll-down"></a>
+
+    <!-- Section One Start -->
+    <section class="steps container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6 d-md-flex justify-content-md-center">
+                <img src="img/mission.jpg" alt="Method" class="img-fluid pb-4 steps__section-thumbnail" width="640" height="426" loading="lazy">
+            </div>
+            <div class="col-12 col-sm-6 align-self-center justify-content-md-center">
+                <div class="steps__content-width">
+                    <h1 class="h2 mb-4">Mission</h1>
+                    <p class="mb-4">Our mission is to empower home buyers by providing expert guidance and transparent information, drawing on our own experiences as homeowners and members of a condominium board. We understand the ins and outs of the real estate process and are dedicated to helping buyers navigate it with confidence and avoid the mistakes we made when we first started out.</p>
+                    <!-- <a href="#">Read More<i class="bi bi-arrow-right"></i></a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section One End-->
+
+    <!-- Section Two Start -->
+    <section class="steps container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6 d-md-flex justify-content-md-center order-sm-1">
+                <img src="img/approach.jpg" alt="Method" class="img-fluid pb-4 steps__section-thumbnail" width="640" height="427" loading="lazy">
+            </div>
+            <div class="col-12 col-sm-6 align-self-center justify-content-md-center">
+                <div class="steps__content-width">
+                    <h1 class="h2 mb-4">Approach</h1>
+                    <p class="mb-4">We understand that time is valuable, which is why we are committed to an approach that prioritizes efficiency and effectiveness.</p>
+                    <p>Our goal is to streamline the real estate process and make it as stress-free as possible for our clients.</p> 
+                    <p>Here's how we do it:</p>
+                    <ul>
+                        <li><p>We listen carefully to our clients' needs and preferences to ensure that we are able to find them the perfect property that fits their budget and lifestyle.</p></li>
+                        <li><p>We are dedicated to providing transparent and accurate information, so that our clients can make informed decisions.</p></li>
+                        <li><p>We use cutting-edge technology and tools to make the process as smooth as possible, from searching for properties to closing the deal.</p></li>
+                        <li><p>We are always available to answer questions and provide guidance throughout the entire process, giving our clients peace of mind that they are in good hands.</p></li>
+                    </ul>
+                    <p>By valuing our clients time, we are committed to make their experience with us as efficient, effective and stress-free as possible.</p>
+                    <!-- <a href="#">Read More<i class="bi bi-arrow-right"></i></a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section Two End-->
+
+    <!-- About -->
+    <section class="bg-dark text-white py-4" id="about">
+        <div class="container-fluid my-4">
+            <div class="row">
+                <div class="col-12 col-sm-4 d-md-flex justify-content-md-center">
+                    <img src="img/zokir.jpg" alt="Method" class="img-fluid pb-4 steps__section-thumbnail" width="240" height="127" loading="lazy">
+                </div>
+                <div class="col-12 col-sm-8 mb-8 order-sm-0">
+                    <h3>About</h3>
+                    <p>My name is Zokir and I stumbled into the world of real estate by accident. For many years, I worked in a corporate field unrelated to real estate. In 2018, I purchased my first condominium apartment, but I was unaware of the many complexities involved in the process. I didn't know anything about mortgage rates, property taxes, condominium bylaws, HOA fees, and more. That purchase caused me many headaches and sleepless nights. I even had to join the board of managers of the condominium to ensure the building was being run appropriately and to deal with contractors, engineers, city services, and management companies.</p>
+                    <p>Through helping my friends with their own real estate purchases, I realized that I had learned so much about the industry and could help others avoid the mistakes I made. As a software engineer, I have a passion for delving into the nitty-gritty details of each property, including property taxes, HOA fees, and cash flow for investors. I decided to become a real estate agent so that I could use my knowledge and experience to guide others in the process and help them make informed decisions. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Start -->
+    <footer class="footer bg-dark text-white">
+        <div class="container-fluid d-flex justify-content-between align-items-center py-3 border-highlight">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="#" class="me-2 text-muted text-decoration-none">
+                    <span>&copy; 2023 FancyPantsy</span>
+                </a>
+            </div>
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex text-white">
+                <li class="ms-3"><a class="text-muted" href="https://www.instagram.com/ironkiki26/"><i class="bi bi-instagram"></i></a></li>
+                <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-facebook"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+    <!-- Footer End -->
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
